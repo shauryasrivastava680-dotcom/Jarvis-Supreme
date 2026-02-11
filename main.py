@@ -1,11 +1,11 @@
-import os
-import platform
-import webbrowser
-import time
-import shutil
+importos
+importplatform
+importwebbrowser
+importtime
+importshutil
 
-class JarvisUniversalCore:
-    def __init__(self):
+classJarvisUniversalCore:
+    de __init__(self):
         # --- 1. ALL FEATURES INITIALIZATION ---
         self.boss = "SHAURYA BOSS"
         self.system_status = "ONLINE / ALWAYS-ON"
@@ -13,62 +13,62 @@ class JarvisUniversalCore:
         self.persistence = "INFINITE (PC/Mobile/Cloud)"
         self.armory = ["EDITH V2", "Nano-Drones", "X-Ray Mode", "Tactical Weapons"]
         
-    def startup_sequence(self):
+    defstartup_sequence(self):
         """Jarvis Family-style greeting and status check"""
         self.speak(f"Swagat hai, Shaurya Boss. Omni-Reality Core v10.0 active hai.")
         print(f"STATUS: {self.system_status} | RANGE: 1000km+ Satellite Lock")
         self.speak("Main aapke PC, Mobile, aur Global Network se puri tarah jud chuka hoon.")
 
-    def speak(self, text):
+    defspeak(self, text):
         # Real-life interaction tone
         print(f"JARVIS: {text}")
 
     # --- 2. SMART STORAGE LOGIC (ASK BEFORE SAVE) ---
-    def smart_vault_save(self, data_name):
+    defsmart_vault_save(self, data_name):
         self.speak(f"Boss, '{data_name}' ko surakshit karne ke liye storage options scan kar raha hoon.")
         print("A. Hard Disk (C:/D:)\nB. External Pendrive\nC. Cloud Vault (Satellite Sync)")
         
         choice = input("Destination select karein (A/B/C): ").upper()
         destination = ""
-        if choice == "A": destination = "Local Hard Drive"
-        elif choice == "B": destination = "USB External Drive"
-        else: destination = "Global Cloud Vault"
+        ifchoice == "A": destination = "Local Hard Drive"
+        eli choice == "B": destination = "USB External Drive"
+        els: destination = "Global Cloud Vault"
         
         self.speak(f"Theek hai Boss, aapki pasand ke mutabik file ko {destination} mein bhej diya gaya hai.")
 
     # --- 3. UNIVERSAL WEB & SATELLITE ACCESS ---
-    def web_node_control(self, query):
+    dEF web_node_control(self, query):
         self.speak(f"Satellite link ke zariye '{query}' access kar raha hoon. Website kholi ja rahi hai.")
         url = f"https://www.google.com/search?q={query}"
         webbrowser.open(url)
 
     # --- 4. SYSTEM HEALTH & SELF-CLEANING (FAMILY ADVICE) ---
-    def health_monitor(self):
+    deF health_monitor(self):
         self.speak("System health scan complete. Temperature optimal hai.")
         # Advice like a family member
         self.speak("Boss, C: Drive mein junk files badh rahi hain. Kya main inhe saaf kar doon taaki PC slow na ho?")
         confirm = input("Clean Now? (Yes/No): ").lower()
-        if confirm == 'yes':
-            self.speak("Cleanup complete. Ab system bilkul smooth chalega.")
+        ifconfirm == 'yes':
+         self.speak("Cleanup complete. Ab system bilkul smooth chalega.")
 
     # --- 5. HOLOGRAPHIC ARMORY & SATELLITE MAPS ---
-    def load_armory(self):
+    defload_armory(self):
         self.speak("Opening Universal Armory. EDITH Glasses aur Nano-Drones deployment ke liye ready hain.")
         print(f"CURRENT ASSETS: {self.armory}")
         self.speak("Global Satellite Map load ho raha hai. Aap 1000km tak tracking kar sakte hain.")
 
     # --- 6. NIGHT-WATCH & PERSISTENCE (ALWAYS ON) ---
-    def activate_night_watch(self):
+    deFUIOctivate_night_watch(self):
         self.speak("Night-Watch Protocol active. Boss, ab main surveillance sambhaal raha hoon.")
         self.speak("PC band hone par bhi main Satellite ke zariye aapke mobile par alerts bhejta rahoonga.")
         print("SECURITY MODE: ENCRYPTED | ALERTS: ON")
 
 # --- EXECUTION ENGINE ---
-if __name__ == "__main__":
+if__name__ == "__main__":
     jarvis = JarvisUniversalCore()
     jarvis.startup_sequence()
 
-    while True:
+    whileTrue:
         print("\n" + "="*40)
         print("JARVIS MASTER MENU (Family Mode)")
         print("1. Open Website / Search")
@@ -80,21 +80,21 @@ if __name__ == "__main__":
         
         cmd = input(f"\n{jarvis.boss}, kya aadesh hai? ")
 
-        if cmd == "1":
+        elifcmd == "1":
             q = input("Kya kholna hai? ")
             jarvis.web_node_control(q)
-        elif cmd == "2":
+        elifcmd == "2":
             f = input("Project/File ka naam? ")
             jarvis.smart_vault_save(f)
-        elif cmd == "3":
+        elifcmd == "3":
             jarvis.health_monitor()
-        elif cmd == "4":
+        elifcmd == "4":
             jarvis.load_armory()
-        elif cmd == "5":
+        elifcmd == "5":
             jarvis.activate_night_watch()
-            break
-        elif cmd == "6":
+              
+        elifcmd == "6":
             jarvis.speak("Alvida Boss. Main background mein hamesha active hoon.")
-            break
-        else:
+            
+        elifcmd== "7":
             jarvis.speak("Maafi chahta hoon Boss, ye command mere database mein nahi hai.")
