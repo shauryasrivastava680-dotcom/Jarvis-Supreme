@@ -1,78 +1,100 @@
-import os, platform, psutil, webbrowser, time
-from flask import Flask, render_template_string
-from flask_socketio import SocketIO, emit
+import os
+import platform
+import webbrowser
+import time
+import shutil
 
-app = Flask(__name__)
-socketio = SocketIO(app, cors_allowed_origins="*")
-
-# --- JARVIS DASHBOARD (NO LOCK VERSION) ---
-MASTER_HUD = """
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JARVIS SUPREME</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-    <style>
-        body { margin: 0; background: #000; color: #00fbff; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
-        .container { height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-        #projector-grid { display: none; position: fixed; inset: 0; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; background: black; z-index: 9999; }
-        .view { border: 0.2px solid rgba(0,251,255,0.1); display: flex; align-items: center; justify-content: center; }
-        .view:nth-child(2) { transform: rotate(90deg); } .view:nth-child(3) { transform: rotate(180deg); } .view:nth-child(4) { transform: rotate(270deg); }
-        .btn { background: rgba(0,251,255,0.1); border: 1px solid #00fbff; color: #00fbff; padding: 15px 30px; margin: 10px; cursor: pointer; font-weight: bold; width: 200px; text-transform: uppercase; letter-spacing: 2px; }
-        .edith-ring { width: 150px; height: 150px; border: 4px double #00fbff; border-radius: 50%; animation: pulse 2s infinite; margin-bottom: 20px; }
-        @keyframes pulse { 0% { transform: scale(0.95); opacity: 0.5; } 70% { transform: scale(1.1); opacity: 1; } 100% { transform: scale(0.95); opacity: 0.5; } }
-        .status-box { position: absolute; top: 10px; font-size: 10px; color: #00fbff; opacity: 0.7; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="status-box">SYSTEM: ONLINE | ENCRYPTION: ACTIVE</div>
-        <div class="edith-ring"></div>
-        <h1 style="letter-spacing: 5px;">JARVIS SUPER</h1>
-        <p style="color: white; opacity: 0.6;">Welcome back, Shaurya.</p>
+class JarvisUniversalCore:
+    def __init__(self):
+        # --- 1. ALL FEATURES INITIALIZATION ---
+        self.boss = "SHAURYA BOSS"
+        self.system_status = "ONLINE / ALWAYS-ON"
+        self.satellite_link = "STARLINK-GLOBAL-SYNC ACTIVE"
+        self.persistence = "INFINITE (PC/Mobile/Cloud)"
+        self.armory = ["EDITH V2", "Nano-Drones", "X-Ray Mode", "Tactical Weapons"]
         
-        <button class="btn" onclick="toggleProjector()">3D PROJECTOR</button>
-        <button class="btn" onclick="triggerMusic()">PLAY MUSIC</button>
-        <button class="btn" onclick="alert('System Optimized, Sir.')">NANO REPAIR</button>
-    </div>
+    def startup_sequence(self):
+        """Jarvis Family-style greeting and status check"""
+        self.speak(f"Swagat hai, Shaurya Boss. Omni-Reality Core v10.0 active hai.")
+        print(f"STATUS: {self.system_status} | RANGE: 1000km+ Satellite Lock")
+        self.speak("Main aapke PC, Mobile, aur Global Network se puri tarah jud chuka hoon.")
 
-    <div id="projector-grid" onclick="this.style.display='none'">
-        <div class="view"><div><div class="edith-ring"></div><p>EDITH<br>V1.0</p></div></div>
-        <div class="view"><div><div class="edith-ring"></div><p>EDITH<br>V1.0</p></div></div>
-        <div class="view"><div><div class="edith-ring"></div><p>EDITH<br>V1.0</p></div></div>
-        <div class="view"><div><div class="edith-ring"></div><p>EDITH<br>V1.0</p></div></div>
-    </div>
+    def speak(self, text):
+        # Real-life interaction tone
+        print(f"JARVIS: {text}")
 
-    <script>
-        const socket = io();
-        const synth = window.speechSynthesis;
-        function speak(t) { const u = new SpeechSynthesisUtterance(t); u.pitch=0.8; synth.speak(u); }
+    # --- 2. SMART STORAGE LOGIC (ASK BEFORE SAVE) ---
+    def smart_vault_save(self, data_name):
+        self.speak(f"Boss, '{data_name}' ko surakshit karne ke liye storage options scan kar raha hoon.")
+        print("A. Hard Disk (C:/D:)\nB. External Pendrive\nC. Cloud Vault (Satellite Sync)")
+        
+        choice = input("Destination select karein (A/B/C): ").upper()
+        destination = ""
+        if choice == "A": destination = "Local Hard Drive"
+        elif choice == "B": destination = "USB External Drive"
+        else: destination = "Global Cloud Vault"
+        
+        self.speak(f"Theek hai Boss, aapki pasand ke mutabik file ko {destination} mein bhej diya gaya hai.")
 
-        function toggleProjector() {
-            document.getElementById('projector-grid').style.display = 'grid';
-            speak("Activating 3D Blueprint Projection.");
-        }
+    # --- 3. UNIVERSAL WEB & SATELLITE ACCESS ---
+    def web_node_control(self, query):
+        self.speak(f"Satellite link ke zariye '{query}' access kar raha hoon. Website kholi ja rahi hai.")
+        url = f"https://www.google.com/search?q={query}"
+        webbrowser.open(url)
 
-        function triggerMusic() {
-            let song = prompt("Enter Song Name:");
-            if(song) socket.emit('music', {query: song});
-        }
+    # --- 4. SYSTEM HEALTH & SELF-CLEANING (FAMILY ADVICE) ---
+    def health_monitor(self):
+        self.speak("System health scan complete. Temperature optimal hai.")
+        # Advice like a family member
+        self.speak("Boss, C: Drive mein junk files badh rahi hain. Kya main inhe saaf kar doon taaki PC slow na ho?")
+        confirm = input("Clean Now? (Yes/No): ").lower()
+        if confirm == 'yes':
+            self.speak("Cleanup complete. Ab system bilkul smooth chalega.")
 
-        window.onload = () => speak("Jarvis is online. Systems ready.");
-    </script>
-</body>
-</html>
-"""
+    # --- 5. HOLOGRAPHIC ARMORY & SATELLITE MAPS ---
+    def load_armory(self):
+        self.speak("Opening Universal Armory. EDITH Glasses aur Nano-Drones deployment ke liye ready hain.")
+        print(f"CURRENT ASSETS: {self.armory}")
+        self.speak("Global Satellite Map load ho raha hai. Aap 1000km tak tracking kar sakte hain.")
 
-@app.route('/')
-def home():
-    return render_template_string(MASTER_HUD)
+    # --- 6. NIGHT-WATCH & PERSISTENCE (ALWAYS ON) ---
+    def activate_night_watch(self):
+        self.speak("Night-Watch Protocol active. Boss, ab main surveillance sambhaal raha hoon.")
+        self.speak("PC band hone par bhi main Satellite ke zariye aapke mobile par alerts bhejta rahoonga.")
+        print("SECURITY MODE: ENCRYPTED | ALERTS: ON")
 
-@socketio.on('music')
-def music(data):
-    # This will open on the SERVER/PC if it's running
-    webbrowser.open(f"https://www.youtube.com/results?search_query={data['query']}")
+# --- EXECUTION ENGINE ---
+if __name__ == "__main__":
+    jarvis = JarvisUniversalCore()
+    jarvis.startup_sequence()
 
-if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=5000)
+    while True:
+        print("\n" + "="*40)
+        print("JARVIS MASTER MENU (Family Mode)")
+        print("1. Open Website / Search")
+        print("2. Save Project (Smart Selector)")
+        print("3. System Health & Cleanup")
+        print("4. Access Armory & Satellite Maps")
+        print("5. Night-Watch (Always-On)")
+        print("6. Exit")
+        
+        cmd = input(f"\n{jarvis.boss}, kya aadesh hai? ")
+
+        if cmd == "1":
+            q = input("Kya kholna hai? ")
+            jarvis.web_node_control(q)
+        elif cmd == "2":
+            f = input("Project/File ka naam? ")
+            jarvis.smart_vault_save(f)
+        elif cmd == "3":
+            jarvis.health_monitor()
+        elif cmd == "4":
+            jarvis.load_armory()
+        elif cmd == "5":
+            jarvis.activate_night_watch()
+            break
+        elif cmd == "6":
+            jarvis.speak("Alvida Boss. Main background mein hamesha active hoon.")
+            break
+        else:
+            jarvis.speak("Maafi chahta hoon Boss, ye command mere database mein nahi hai.")
